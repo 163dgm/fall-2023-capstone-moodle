@@ -33,6 +33,15 @@ def hw_clean():
 			finally:
 				clean_hw.to_csv(f"./clean/{year}/HW/{hw_path}", index=False)
 
+def xlsx_clean():
+	"""
+	Splits `./raw/Moodle Datasets.xlsx` into individual sheets 
+	and moves them into each respective year's folder.
+	"""
+	for year in years:
+		year_sheet = pd.read_excel("./raw/Moodle Datasets.xlsx", sheet_name=year)
+		year_sheet.to_csv(f"./clean/{year}/deadlines.csv", index=False)
+
 
 if __name__ == "__main__":
 	pass
