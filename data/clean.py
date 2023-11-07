@@ -2,10 +2,6 @@ import pandas as pd
 import os
 import clean_utils as utils
 
-<<<<<<< HEAD
-def clean():
-	years = ["F20", "F21", "F22"]
-=======
 years = ["F20", "F21", "F22"]
 
 def hw_clean():
@@ -14,7 +10,6 @@ def hw_clean():
 	removes each homework that was not finished, and converts
 	string times to minutes.
 	"""
->>>>>>> 109c1afaee86a63eca680864f14de55740a82742
 	for year in years:
 		hw_folder = sorted(os.listdir(f"./raw/{year}/HW"))
 		for hw_path in hw_folder:
@@ -40,4 +35,4 @@ def hw_clean():
 
 
 if __name__ == "__main__":
-	clean()
+	pass
