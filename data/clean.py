@@ -2,6 +2,7 @@ import pandas as pd
 import os
 import clean_utils as utils
 
+<<<<<<< Updated upstream
 years = ["F20", "F21", "F22"]
 
 def hw_clean():
@@ -10,6 +11,10 @@ def hw_clean():
 	removes each homework that was not finished, and converts
 	string times to minutes.
 	"""
+=======
+def clean():
+	years = ["F20", "F21", "F22"]
+>>>>>>> Stashed changes
 	for year in years:
 		hw_folder = sorted(os.listdir(f"./raw/{year}/HW"))
 		for hw_path in hw_folder:
