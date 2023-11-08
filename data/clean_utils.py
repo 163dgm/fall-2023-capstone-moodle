@@ -16,12 +16,13 @@ def str_time_to_minutes(time_str: str) -> int:
 	mins = count_occurance(split_str, min_strs)
 	secs = count_occurance(split_str, sec_strs)
 
-	total_mins = (hours * 60) + mins + (1 if secs >= 30 else 0)
-	return total_mins
+	total_mins = (hours * 60) + mins + (secs / 60)
+	return round(total_mins, 2)
 
 
 if __name__ == "__main__":
-	test_1 = "57 mins 31 secs"
-	test_2 = "1 hour 34 mins 35 secs"
-	print(str_time_to_minutes(test_1))
-	print(str_time_to_minutes(test_2))
+	times = ["57 mins 31 secs", "1 hour 34 mins 35 secs", "2 hours"]
+	for time in times:
+		print(time, ":", str_time_to_minutes(time))
+		
+		
