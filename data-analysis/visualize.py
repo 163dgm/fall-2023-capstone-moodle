@@ -1,5 +1,7 @@
 import os
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 
 def merge_df():
     # Combine all dataframes into one
@@ -22,20 +24,38 @@ def merge_df():
 
 
 def time_taken_corr_grade():
-    df = pd.read_csv('merged_df.csv') 
-    time_taken = df[['Time taken']]
-    grade = df[['Grade/20.00']]
-
-    for time in time_taken:
-        min = time
-
-
-
-    # find min and max times for time taken
-    # find min and max grade 
-    # plot 
+    '''
+    # find min and max times for time taken x axis
+    # find min and max grade y axis
+    years = ["F20", "F21", "F22"]
+    for year in years:
+        df = pd.read_csv(f'merged_df_{year}.csv') 
+        time_taken = df['Time taken']
+        min_time = np.array(time_taken).min()
+        grade = df['Grade/20.00']
+        min_grade = np.array(grade).min()
+    ''' 
+    years = ["F20", "F21", "F22"]
+    for year in years:
+        df = pd.read_csv(f'merged_df_{year}.csv') 
+        time_taken = df['Time taken']
+        grade = df["Grade/20.00"]
+        # Perform linear regression to find the line of best fit
+        slope, intercept = np.polyfit(time_taken, grade, 1)
+        # Create the line of best fit
+        line_of_best_fit = slope * np.array(time_taken) + intercept
+        plt.scatter(time_taken, grade)
+        # Plot the line of best fit
+        plt.plot(time_taken, line_of_best_fit, color='red', label="Line of Best Fit")
+        # Set labels and title
+        plt.xlabel("Time Taken")
+        plt.ylabel("Grade/20.00")
+        plt.title(f"Grade vs. Time Taken for {year}")
+        # Show legend
+        plt.legend()
+        plt.show()
 
 
 if __name__ == "__main__":
-	merge_df()
-    #time_taken_corr_grade()
+    merge_df()
+    time_taken_corr_grade()
