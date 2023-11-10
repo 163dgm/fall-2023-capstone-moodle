@@ -2,6 +2,8 @@ import os
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime
+
 
 def merge_df():
     # Combine all dataframes into one
@@ -24,17 +26,6 @@ def merge_df():
 
 
 def time_taken_corr_grade():
-    '''
-    # find min and max times for time taken x axis
-    # find min and max grade y axis
-    years = ["F20", "F21", "F22"]
-    for year in years:
-        df = pd.read_csv(f'merged_df_{year}.csv') 
-        time_taken = df['Time taken']
-        min_time = np.array(time_taken).min()
-        grade = df['Grade/20.00']
-        min_grade = np.array(grade).min()
-    ''' 
     years = ["F20", "F21", "F22"]
     for year in years:
         df = pd.read_csv(f'merged_df_{year}.csv') 
@@ -55,7 +46,28 @@ def time_taken_corr_grade():
         plt.legend()
         plt.show()
 
+def time_of_day_grade():
+    years = ["F20", "F22"] # no visualization for F21 because time (AM/PM) is not noted
+    for year in years:
+        df = pd.read_csv(f'merged_df_{year}.csv') 
+        grade = df["Grade/20.00"]
+        date_string = df['Completed']
+        date_format = "%d %B %Y %I:%M %p" # converting date 
+        parsed_date = pd.to_datetime(date_string, format=date_format)
+        # time = parsed_date.dt.time
+         # Calculate time in hours since midnight
+        time_hours = parsed_date.dt.hour + parsed_date.dt.minute / 60
+        plt.scatter(time_hours,grade)
+        plt.xlabel("Time in Hours Since 12AM")
+        plt.ylabel("Grade/20.00")
+        plt.title(f"Grade vs. Assignment Submission Time for {year}")
+        # Show legend
+        plt.legend()
+        plt.show()
+
+    
 
 if __name__ == "__main__":
     merge_df()
     time_taken_corr_grade()
+    time_of_day_grade()
