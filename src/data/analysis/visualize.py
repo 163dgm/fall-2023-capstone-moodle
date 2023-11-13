@@ -4,10 +4,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
 
+years = ["F20", "F21", "F22"]
 
 def merge_df():
     # Combine all dataframes into one
-    years = ["F20", "F21", "F22"]
     for year in years:
         dir_list = sorted(os.listdir(f"../data/clean/{year}/HW"))
         df_total = pd.DataFrame()  # Create an empty DataFrame
@@ -26,7 +26,6 @@ def merge_df():
 
 
 def time_taken_corr_grade():
-    years = ["F20", "F21", "F22"]
     for year in years:
         df = pd.read_csv(f'merged_df_{year}.csv') 
         time_taken = df['Time taken']
@@ -65,9 +64,20 @@ def time_of_day_grade():
         plt.legend()
         plt.show()
 
+def group_by_grade():
+    for year in years:
+        hw_dir = f"../clean/{year}/HW"
+        hw_files = sorted(os.listdir(hw_dir))
+        cols = ["ID number"] + list(map(lambda n: f"HW{n} Grade/20.00", range(1, 12)))
+
+        grouped_df = pd.DataFrame(columns=cols)
+        print(grouped_df)
+        for i in range(len(hw_files)):
+            df = pd.read_csv(f"{hw_dir}/{hw_files[i]}")
+            grouped_df["ID number"] = df["ID number"]
+            # grouped_df[f"HW{i} Grade/20.00"] 
     
 
 if __name__ == "__main__":
-    merge_df()
-    time_taken_corr_grade()
-    time_of_day_grade()
+    # merge_df()
+    group_by_grade()

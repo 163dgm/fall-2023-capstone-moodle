@@ -17,7 +17,7 @@ def hw_clean():
 			raw_hw = pd.read_csv(raw_hw_path)
 
 			# Remove unneeded columns
-			removed_columns = ["Surname", "First name", "ID number", "Email address"]
+			removed_columns = ["Surname", "First name", "Email address"]
 			clean_hw = raw_hw.drop(columns=removed_columns)
 
 			# Remove unfinished homework
