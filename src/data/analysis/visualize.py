@@ -89,6 +89,11 @@ def group_hw_grades_by_id():
         output_file = f"{year}_hw_grades_by_id.csv"
         combined_df.to_csv(output_file, index=False)
 
+def find_hw_length_corr_grade():
+    return
+
+
 
 if __name__ == "__main__":
-    pass
+    #find_hw_length_corr_grade()
+    merge_df()

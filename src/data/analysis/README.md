@@ -58,11 +58,6 @@ potential trends to look for:
   - compare students final grade vs their avg assignment grade. Are students who perform well on the final also performing well in the course as a whole? This could help identify the effectiveness of quizzes as an assessment tool.
 
 
-
-
-
-
-
 clusters of students by performance: 3-4 categories
 
 - spotlights certain students and the reason WHY
