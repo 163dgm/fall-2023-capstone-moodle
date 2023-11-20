@@ -10,11 +10,11 @@ years = ["F20", "F21", "F22"]
 def merge_df():
     # Combine all dataframes into one
     for year in years:
-        dir_list = sorted(os.listdir(f"../data/clean/{year}/HW"))
+        dir_list = sorted(os.listdir(f"../clean/{year}/HW"))
         df_total = pd.DataFrame()  # Create an empty DataFrame
 
         for path in dir_list:
-            df = pd.read_csv(f"../data/clean/{year}/HW/{path}")  # Read each file
+            df = pd.read_csv(f"../clean/{year}/HW/{path}")  # Read each file
             df_total = pd.concat([df_total, df], axis=0)
 
         # Select specific columns in the DataFrame
@@ -23,13 +23,13 @@ def merge_df():
         ]
 
         # Write a separate CSV file for each year
-        output_file = f"merged_df_{year}.csv"
+        output_file = f"merged_df_{year}_hw.csv"
         df_total.to_csv(output_file, index=False)
 
 
 def time_taken_corr_grade():
     for year in years:
-        df = pd.read_csv(f"merged_df_{year}.csv")
+        df = pd.read_csv(f"merged_df_{year}_hw.csv")
         time_taken = df["Time taken"]
         grade = df["Grade/20.00"]
         # Perform linear regression to find the line of best fit
@@ -51,7 +51,7 @@ def time_taken_corr_grade():
 def time_of_day_grade():
     years = ["F20", "F22"]  # no visualization for F21 because time (AM/PM) is not noted
     for year in years:
-        df = pd.read_csv(f"merged_df_{year}.csv")
+        df = pd.read_csv(f"merged_df_{year}_hw.csv")
         grade = df["Grade/20.00"]
         date_string = df["Completed"]
         date_format = "%d %B %Y %I:%M %p"  # converting date
