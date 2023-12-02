@@ -4,10 +4,7 @@ import pandas as pd
 import numpy as np
 import plotly.express as px
 from streamlit.runtime.uploaded_file_manager import UploadedFile
-from utils import clean_csv
-
-
-add_indentation()
+from utils import clean_assignment_csv
 
 
 def find_collaboration(in_df: pd.DataFrame):
@@ -30,11 +27,13 @@ def find_collaboration(in_df: pd.DataFrame):
 
 def get_assignment_collaboration(file: UploadedFile):
     df = pd.read_csv(file)
-    df = clean_csv(df)
+    df = clean_assignment_csv(df)
     return find_collaboration(df)
 
 
+add_indentation()
 st.title("Collaboration per Assignment")
+
 
 csv = st.file_uploader("Choose a file", type="csv", accept_multiple_files=False)
 if csv is not None:
@@ -48,8 +47,8 @@ if csv is not None:
         hover_data=["Student ID", "First Name", "Surname"],
         range_y=[0, 20],
     )
-
     st.plotly_chart(timeline)
+
     s = collabs.style.format(
         {
             "Student ID": lambda x: "{:}".format(x),

@@ -1,13 +1,8 @@
 import pandas as pd
 import streamlit as st
-import numpy as np
-import plotly.express as px
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from st_pages import add_indentation
-
-from utils import clean_csv, get_col_by_id
-
-add_indentation()
+from utils import clean_assignment_csv, get_col_by_id
 
 
 def find_potential_cheaters(df: pd.DataFrame) -> pd.DataFrame:
@@ -29,7 +24,7 @@ def find_cheaters_in_multiple_files(files: list[UploadedFile]):
     repeat_offenders = {}
     for file in files:
         df = pd.read_csv(file)
-        df = clean_csv(df)
+        df = clean_assignment_csv(df)
         cheaters = find_potential_cheaters(df)
 
         for id in cheaters["Student ID"]:
@@ -73,12 +68,12 @@ def get_assignments_cheated_on(cheaters: pd.DataFrame):
     return assgn_cheated
 
 
+add_indentation()
 st.title("Detect Cheating in Recent Assignments")
 
-csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)
 
+csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)
 if len(csvs) > 0:
-    st.cache_data.clear()
     cheaters = find_cheaters_in_multiple_files(csvs)
     s = cheaters.style.format({"Student ID": lambda x: "{:}".format(x)})
 

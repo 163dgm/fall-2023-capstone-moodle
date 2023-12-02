@@ -39,7 +39,7 @@ def str_time_to_minutes(time_str: str) -> int:
     return round(total_mins, 2)
 
 
-def clean_csv(df: pd.DataFrame):
+def clean_assignment_csv(df: pd.DataFrame):
     df = df.drop(df[df["State"] != "Finished"].index)
 
     # Convert string time taken to minutes
@@ -47,6 +47,7 @@ def clean_csv(df: pd.DataFrame):
     df["Started on"] = pd.to_datetime(df["Started on"], format="%d %B %Y %I:%M %p")
     df["Completed"] = pd.to_datetime(df["Completed"], format="%d %B %Y %I:%M %p")
     df["ID number"] = df["ID number"].astype("int")
+    df["Grade/20.00"] = df["Grade/20.00"].astype("float")
 
     df = rename_columns(df)
 
@@ -55,3 +56,8 @@ def clean_csv(df: pd.DataFrame):
 
 def get_col_by_id(df: pd.DataFrame, given_id: int, col_to_find: str):
     return df.loc[df["Student ID"] == given_id, col_to_find].values[0]
+
+
+def chunk_list(lst: list, num: int):
+    for i in range(0, len(lst), num):
+        yield lst[i : i + num]

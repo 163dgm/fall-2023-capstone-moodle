@@ -8,9 +8,11 @@ add_indentation()
 show_pages(
     [
         Page("app/home.py", "Home"),
-        Section("Cheating"),
+        Section("Cheating", "🤥"),
         Page("app/pages/cheating/cheating.py", "Term Cheating"),
         Page("app/pages/cheating/collaboration.py", "Assignment Collaboration"),
-        Page("app/pages/performance.py", "Performance", in_section=False),
+        Section("Student Performance", "📈"),
+        Page("app/pages/performance/location.py", "Submission Location"),
+        Page("app/pages/performance/term_performance.py", "Term Performance"),
     ]
 )
