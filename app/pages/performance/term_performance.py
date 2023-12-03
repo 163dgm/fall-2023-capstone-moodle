@@ -7,13 +7,66 @@ import plotly.express as px
 
 
 def read_assignments(csvs: list[UploadedFile]):
-    assignments = pd.DataFrame()
+    """
+    Take multiple assignment CSVs and combine them into one big dataframe.
+    """
+    combined_assignments = pd.DataFrame()
     for csv in csvs:
         df = pd.read_csv(csv)
         df = clean_assignment_csv(df)
+        # Add new column "Assignment Name" that is the name of the file uploaded (without .csv)
         df["Assignment Name"] = csv.name.split(".csv")[0]
-        assignments = pd.concat([assignments, df], ignore_index=True)
-    return assignments
+
+        # Add cleaned assignment dataframe to one big dataframe
+        combined_assignments = pd.concat([combined_assignments, df], ignore_index=True)
+
+    return combined_assignments
+
+
+def get_assignments_by_student_id(
+    assignments: pd.DataFrame, student_id: int
+) -> pd.DataFrame:
+    """
+    Returns all assignments for a given student id in one dataframe.
+    """
+    return assignments.loc[assignments["Student ID"] == student_id].sort_values(
+        by="Assignment Name"
+    )
+
+
+def create_student_line_chart(student_assignments: pd.DataFrame):
+    """
+    Creates a line chart to show a students grade for each assignment.
+    """
+    graph_title = f"{student_assignments['First Name'].values[0]} {student_assignments['Surname'].values[0]}'s Term Assignment Performance"
+    line_chart = px.line(
+        student_assignments,
+        x="Assignment Name",
+        y="Grade/20",
+        markers=True,
+        title=graph_title,
+        hover_data=["Time Taken", "Start Time"],
+    )
+
+    return line_chart
+
+
+def get_student_assignments_description(student_assignments: pd.DataFrame):
+    """
+    Gets the descriptive statistics of a given student's assignments.
+    """
+    filtered_description = (
+        # Get mean median mode, etc of student assignments but only for int/float values
+        student_assignments.describe(include=[float, int])
+        # Get rid of Student ID since its an int, but not useful to us
+        .drop(
+            columns="Student ID",
+        )
+        # Drop count, don't need this for assignments
+        .drop(["count"])
+    )
+
+    return filtered_description
 
 
 add_indentation()
@@ -21,28 +74,20 @@ st.title("Student Term Performance")
 
 csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)
 if len(csvs) > 0:
-    assignments = read_assignments(csvs)
     id = st.text_input("Enter a Student ID")
     if len(id) > 0 and str.isdigit(id):
         # 28609357
-        student_assignments = assignments.loc[
-            assignments["Student ID"] == int(id)
-        ].sort_values(by="Assignment Name")
-        graph_title = f"{student_assignments['First Name'].values[0]} {student_assignments['Surname'].values[0]}'s Term Assignment Performance"
-        graph = px.line(
-            student_assignments,
-            x="Assignment Name",
-            y="Grade/20",
-            markers=True,
-            title=graph_title,
-            hover_data=["Time Taken", "Start Time"],
-        )
-        st.plotly_chart(graph)
+        assignments = read_assignments(csvs)
+        student_assignments = get_assignments_by_student_id(assignments, int(id))
+
+        # Create line chart figure
+        line_chart = create_student_line_chart(student_assignments)
+        # Display line chart on site
+        st.plotly_chart(line_chart)
+
+        # Show table of a student's assignment metrics (mean, std, mode, etc)
+        description = get_student_assignments_description(student_assignments)
         st.dataframe(
-            student_assignments.describe(include=[float, int])
-            .drop(
-                columns="Student ID",
-            )
-            .drop(["count"]),
+            description,
             use_container_width=True,
         )

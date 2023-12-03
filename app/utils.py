@@ -54,7 +54,21 @@ def clean_assignment_csv(df: pd.DataFrame):
     return df
 
 
-def get_col_by_id(df: pd.DataFrame, given_id: int, col_to_find: str):
+def get_col_value_by_student_id(df: pd.DataFrame, given_id: int, col_to_find: str):
+    """
+    Get a value in a column by student ID.
+    Example:
+    ```
+    Student ID   greeting
+    1234         hello
+    9999         sup
+    ```
+    Given this dataframe `student_greetings`
+    ```
+    val = get_col_value_by_student_id(student_greetings, 1234, "greeting")
+    # val is "hello"
+    ```
+    """
     return df.loc[df["Student ID"] == given_id, col_to_find].values[0]
 
 

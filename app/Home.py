@@ -14,5 +14,6 @@ show_pages(
         Section("Student Performance", "📈"),
         Page("app/pages/performance/location.py", "Submission Location"),
         Page("app/pages/performance/term_performance.py", "Term Performance"),
+        Page("app/pages/performance/exams.py", "Exam Performance"),
     ]
 )

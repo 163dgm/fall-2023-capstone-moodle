@@ -2,7 +2,7 @@ import pandas as pd
 import streamlit as st
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from st_pages import add_indentation
-from utils import clean_assignment_csv, get_col_by_id
+from utils import clean_assignment_csv, get_col_value_by_student_id
 
 
 def find_potential_cheaters(df: pd.DataFrame) -> pd.DataFrame:
@@ -31,8 +31,8 @@ def find_cheaters_in_multiple_files(files: list[UploadedFile]):
             repeat_offenders[id] = repeat_offenders.get(
                 id,
                 [
-                    get_col_by_id(df, id, "First Name"),
-                    get_col_by_id(df, id, "Surname"),
+                    get_col_value_by_student_id(df, id, "First Name"),
+                    get_col_value_by_student_id(df, id, "Surname"),
                     0,
                     set(),
                 ],
