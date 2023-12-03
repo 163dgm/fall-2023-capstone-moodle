@@ -72,6 +72,10 @@ def get_col_value_by_student_id(df: pd.DataFrame, given_id: int, col_to_find: st
     return df.loc[df["Student ID"] == given_id, col_to_find].values[0]
 
 
+def get_df_cell(df: pd.DataFrame, assignment_type: int, col_to_find: str):
+    return df.loc[df["Quizz type"] == assignment_type, col_to_find].values[0]
+
+
 def chunk_list(lst: list, num: int):
     for i in range(0, len(lst), num):
         yield lst[i : i + num]
