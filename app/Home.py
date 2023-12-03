@@ -13,7 +13,8 @@ show_pages(
         Page("app/pages/cheating/collaboration.py", "Assignment Collaboration"),
         Section("Student Performance", "📈"),
         Page("app/pages/performance/location.py", "Submission Location"),
-        Page("app/pages/performance/term_performance.py", "Term Performance"),
+        Page("app/pages/performance/term_performance.py", "Submission Patterns"),
+        Page("app/pages/performance/time_of_day.py", "Time of Day"),
         Page("app/pages/performance/exams.py", "Exam Performance"),
     ]
 )

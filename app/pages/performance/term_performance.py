@@ -3,6 +3,7 @@ import streamlit as st
 from st_pages import add_indentation
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from utils import clean_assignment_csv
+import os
 import plotly.express as px
 
 
@@ -68,9 +69,26 @@ def get_student_assignments_description(student_assignments: pd.DataFrame):
 
     return filtered_description
 
+# Example usage:
+# Assuming you have a DataFrame 'hw_assignments' with columns like 'student_id', 'open_day', 'open_time', 'close_day', 'close_time'
+# grouped_assignments = group_students(hw_assignments)
+
+# You can then analyze or visualize the grouped_assignments DataFrame as needed.
+
+    
+
+
+# search for one student
+# flag the assignment if they have a 10% difference of the average of their previous ones
+# if they fail one, dont count that towards average--> ignore flagged hw
+
+#def ignore_flagged_hw():
+
 
 add_indentation()
-st.title("Student Term Performance")
+st.title("Student Submission Patterns")
+
+deadlines = st.file_uploader("Upload the file containing the deadlines", type="csv", accept_multiple_files=False)
 
 csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)
 if len(csvs) > 0:
