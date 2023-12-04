@@ -7,7 +7,7 @@ add_indentation()
 
 show_pages(
     [
-        Page("app/home.py", "Home"),
+        Page("app/Home.py", "Home"),
         Section("Student Performance", "📈"),
         Page("app/pages/performance/term_performance.py", "Submission Patterns"),
         Page("app/pages/performance/location.py", "Submission Location"),
