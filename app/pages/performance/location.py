@@ -4,7 +4,6 @@ import streamlit as st
 import pandas as pd
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from utils import chunk_list
-from dotenv import dotenv_values
 import plotly.express as px
 
 
@@ -16,7 +15,7 @@ def get_batch_coords(ips: list[str]):
 
     coords = pd.DataFrame()
     for chunk in list(chunk_list(body, 99)):
-        response = requests.post(dotenv_values(".env")["IP_API_URL"], json=chunk)
+        response = requests.post(st.secrets["IP_API_URL"], json=chunk)
 
         if response.status_code == 200:
             data = response.json()
@@ -52,7 +51,7 @@ csv = st.file_uploader("Choose a file", type="csv", accept_multiple_files=False)
 if csv is not None:
     locations = geolocate_assignment_submissions(csv)
 
-    px.set_mapbox_access_token(dotenv_values(".env")["MAPBOX_TOKEN"])
+    px.set_mapbox_access_token(st.secrets["MAPBOX_TOKEN"])
     map = px.scatter_mapbox(
         locations,
         lat="lat",

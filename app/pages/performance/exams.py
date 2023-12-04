@@ -1,10 +1,8 @@
-import requests
 from st_pages import add_indentation
 import streamlit as st
 import pandas as pd
 from streamlit.runtime.uploaded_file_manager import UploadedFile
-from utils import chunk_list, clean_assignment_csv, get_col_value_by_student_id
-from dotenv import dotenv_values
+from utils import clean_assignment_csv, get_col_value_by_student_id
 import plotly.express as px
 
 
