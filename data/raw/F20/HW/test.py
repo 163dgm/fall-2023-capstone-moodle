@@ -228,4 +228,4 @@ deadlines = clean_deadlines_csv(deadlines)
 windows = find_time_window(deadlines)
 marked_assignments = mark_submission_status(assignment, deadlines)
 
-# print(marked_assignments)
+# sprint(marked_assignments)

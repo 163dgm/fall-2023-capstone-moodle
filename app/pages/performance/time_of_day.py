@@ -1,8 +1,10 @@
 import streamlit as st
 from streamlit.runtime.uploaded_file_manager import UploadedFile
+
 # from datetime import datetime
 from st_pages import add_indentation
 from utils import clean_assignment_csv
+
 # import plotly.express as px
 import pandas as pd
 import numpy as np
@@ -15,20 +17,20 @@ def read_assignment(csv: UploadedFile):
     # print(assignments)
     return assignments
 
-def time_of_day_grade(csv): # time of day assignment is submitted, corresponding grade
+
+def time_of_day_grade(csv):  # time of day assignment is submitted, corresponding grade
     # group by time of day they do it, assume time of day they do it is submission time
-    # 4 groups: morning (6am-12pm), afternoon (12:01pm-5pm), 
+    # 4 groups: morning (6am-12pm), afternoon (12:01pm-5pm),
     # evening (5:01pm-8pm), night (8:01pm-5:59am)
-    # take average of each group, bar chart 
+    # take average of each group, bar chart
     # y-axis: grade/20, x-axis: group
     # DICT: KEY IS TIME, VALUE IS PERFORMANCE
-    
+
     # Define time ranges
     morning_range = pd.to_datetime(["06:00:00", "12:00:00"]).time
     afternoon_range = pd.to_datetime(["12:01:00", "17:00:00"]).time
     evening_range = pd.to_datetime(["17:01:00", "20:00:00"]).time
     night_range = pd.to_datetime(["20:01:00", "23:59:59"]).time
-
 
     df = read_assignment(csv)
     date_string = df["Complete Time"]
@@ -64,14 +66,16 @@ def time_of_day_grade(csv): # time of day assignment is submitted, corresponding
     times_of_day = ["Morning", "Afternoon", "Evening", "Night"]
     average_grades = [avg_morning, avg_afternoon, avg_evening, avg_night]
 
-    new_df = pd.DataFrame(zip(times_of_day, average_grades), columns=["Time of Day", "Average Grade"])
+    new_df = pd.DataFrame(
+        zip(times_of_day, average_grades), columns=["Time of Day", "Average Grade"]
+    )
 
     return new_df
 
 
-
 add_indentation()
 st.title("Time of Day and Performance per Assignment")
+st.subheader("Visualize When Students Complete Assignments")
 st.caption(
     "See if students' performance is affected by the time of day at which they complete their assignments. Students are categorized into four groups according to when they do their assignments. These groups are 'Morning', 'Afteroon', 'Evening', and 'Night', which are defined as 6am-12pm, 12pm-5pm, 5pm-8pm, and 8pm-5am, respectively."
 )
@@ -80,5 +84,3 @@ if csv is not None:
     df = time_of_day_grade(csv)
     st.markdown("### Average Grade vs. Time of Day")
     st.bar_chart(df.set_index("Time of Day"), y="Average Grade")
-
-

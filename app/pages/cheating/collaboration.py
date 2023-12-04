@@ -33,6 +33,8 @@ def get_assignment_collaboration(file: UploadedFile):
 
 add_indentation()
 st.title("Collaboration per Assignment")
+st.subheader()
+st.caption()
 
 
 csv = st.file_uploader("Choose a file", type="csv", accept_multiple_files=False)

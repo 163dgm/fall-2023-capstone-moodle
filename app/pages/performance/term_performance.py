@@ -69,26 +69,31 @@ def get_student_assignments_description(student_assignments: pd.DataFrame):
 
     return filtered_description
 
+
 # Example usage:
 # Assuming you have a DataFrame 'hw_assignments' with columns like 'student_id', 'open_day', 'open_time', 'close_day', 'close_time'
 # grouped_assignments = group_students(hw_assignments)
 
 # You can then analyze or visualize the grouped_assignments DataFrame as needed.
 
-    
-
 
 # search for one student
 # flag the assignment if they have a 10% difference of the average of their previous ones
 # if they fail one, dont count that towards average--> ignore flagged hw
 
-#def ignore_flagged_hw():
+# def ignore_flagged_hw():
 
 
 add_indentation()
 st.title("Student Submission Patterns")
+st.subheader("Analysis and Visualization of Students' Submission Patterns")
+st.caption(
+    "Students can be categorized into three categories: those who start assignments early, those who start assignments in the middle, and those who start assignments late. Students who start within 25% of the elapsed time from when the assignment opened are considered 'early,' students who start within 25-75% of the elapsed time are considered 'middle,' and those who start after 75% of the elapsed time are considered 'late.' Upload a file containing the deadlines of each assignment and the assignment name first. Then upload multiple assignment files, and use this page to search for specific students to see their submission patterns ('early', 'middle', or 'late') and their corresponding performance throughout the term."
+)
 
-deadlines = st.file_uploader("Upload the file containing the deadlines", type="csv", accept_multiple_files=False)
+deadlines = st.file_uploader(
+    "Upload the file containing the deadlines", type="csv", accept_multiple_files=False
+)
 
 csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)
 if len(csvs) > 0:

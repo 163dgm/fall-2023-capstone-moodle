@@ -7,7 +7,7 @@ from datetime import datetime
 years = ["F20", "F21", "F22"]
 
 
-def merge_df(): # creates merged_df_{year}_hw.csv
+def merge_df():  # creates merged_df_{year}_hw.csv
     # Combine all dataframes into one
     for year in years:
         dir_list = sorted(os.listdir(f"../clean/{year}/HW"))
@@ -17,15 +17,22 @@ def merge_df(): # creates merged_df_{year}_hw.csv
             df = pd.read_csv(f"../clean/{year}/HW/{path}")  # Read each file
             df_total = pd.concat([df_total, df], axis=0)
 
-        df_total.columns = df_total.columns.str.lower() #case insensitive
-        
+        df_total.columns = df_total.columns.str.lower()  # case insensitive
+
         # Select specific columns in the DataFrame
         df_total["id number"] = df_total["id number"].astype(int)
-        #print(type(df_total["id number"]))
-        selected_columns = ["id number", "state", "started on", "completed", "time taken", "grade/20.00"]
+        # print(type(df_total["id number"]))
+        selected_columns = [
+            "id number",
+            "state",
+            "started on",
+            "completed",
+            "time taken",
+            "grade/20.00",
+        ]
         df_total = df_total[selected_columns]
         # print(df_total)
-        
+
         # Write a separate CSV file for each year
         output_file = f"merged_df_{year}_hw.csv"
         df_total.to_csv(output_file, index=False)
@@ -52,14 +59,14 @@ def time_taken_corr_grade():
         plt.show()
 
 
-def time_of_day_grade(): # time of day assignment is submitted, corresponding grade
+def time_of_day_grade():  # time of day assignment is submitted, corresponding grade
     # group by time of day they do it, assume time of day they do it is submission time
-    # 4 groups: morning (6am-12pm), afternoon (12:01pm-5pm), 
+    # 4 groups: morning (6am-12pm), afternoon (12:01pm-5pm),
     # evening (5:01pm-8pm), night (8:01pm-5:59am)
-    # take average of each group, bar chart 
+    # take average of each group, bar chart
     # y-axis: grade/20, x-axis: group
     # DICT: KEY IS TIME, VALUE IS PERFORMANCE
-    
+
     # Define time ranges
     morning_range = pd.to_datetime(["06:00:00", "12:00:00"]).time
     afternoon_range = pd.to_datetime(["12:01:00", "17:00:00"]).time
@@ -67,7 +74,7 @@ def time_of_day_grade(): # time of day assignment is submitted, corresponding gr
     night_range = pd.to_datetime(["20:01:00", "23:59:59"]).time
 
     years = ["F20", "F22"]  # no visualization for F21 because time (AM/PM) is not noted
-    
+
     for year in years:
         df = pd.read_csv(f"merged_df_{year}_hw.csv")
         date_string = df["completed"]
@@ -111,7 +118,6 @@ def time_of_day_grade(): # time of day assignment is submitted, corresponding gr
         plt.show()
 
 
-
 def group_hw_grades_by_id():
     for year in years:
         hw_dir = f"../clean/{year}/HW"
@@ -133,13 +139,11 @@ def group_hw_grades_by_id():
         output_file = f"{year}_hw_grades_by_id.csv"
         combined_df.to_csv(output_file, index=False)
 
+
 def find_hw_length_corr_grade():
     return
 
 
-
 if __name__ == "__main__":
-    #find_hw_length_corr_grade()
-   time_of_day_grade()
-
-  
+    # find_hw_length_corr_grade()
+    time_of_day_grade()
