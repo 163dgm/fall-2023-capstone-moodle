@@ -69,7 +69,11 @@ def get_assignments_cheated_on(cheaters: pd.DataFrame):
 
 
 add_indentation()
-st.title("Detect Cheating in Recent Assignments")
+st.title("Term Cheating")
+st.subheader("Check if students are cheating on assignments throughout the term")
+st.caption(
+    "One of the clearest ways students cheat is if they complete an assignment unusually fast with a high score. By uploading multiple assignments, you can get an overview of how many students are potentially cheating and on which assignments. This is determined by calculating the mean time taken on the assignment and if a student performs one standard deviation below this with a score above an A, the student will be flagged on that assignment."
+)
 
 
 csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)

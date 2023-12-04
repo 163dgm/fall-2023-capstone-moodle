@@ -33,8 +33,10 @@ def get_assignment_collaboration(file: UploadedFile):
 
 add_indentation()
 st.title("Collaboration per Assignment")
-st.subheader()
-st.caption()
+st.subheader("Check if students may be working together on assignments")
+st.caption(
+    "One way students work together is by having one take the assignment using the full amount of time, and the others finish very quickly -- usually achieving the same score. By uploading an assignment we can see how long a student took on an assignment and their score. If there are two lines close to each other it could potentially mean collaboration. However, this is not conclusive evidence."
+)
 
 
 csv = st.file_uploader("Choose a file", type="csv", accept_multiple_files=False)
