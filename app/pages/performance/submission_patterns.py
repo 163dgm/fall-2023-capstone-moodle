@@ -5,6 +5,7 @@ from st_pages import add_indentation
 from streamlit.runtime.uploaded_file_manager import UploadedFile
 from utils import clean_assignment_csv
 import plotly.express as px
+import openpyxl
 
 
 def read_assignments(csvs: list[UploadedFile]):

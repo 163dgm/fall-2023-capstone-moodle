@@ -9,7 +9,7 @@ show_pages(
     [
         Page("app/Home.py", "Home"),
         Section("Student Performance", "📈"),
-        Page("app/pages/performance/term_performance.py", "Submission Patterns"),
+        Page("app/pages/performance/submission_patterns.py", "Submission Patterns"),
         Page("app/pages/performance/location.py", "Submission Location"),
         Page("app/pages/performance/time_of_day.py", "Time of Day"),
         Page("app/pages/performance/exams.py", "Exam Performance"),
