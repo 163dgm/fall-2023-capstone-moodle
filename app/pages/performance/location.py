@@ -62,4 +62,3 @@ if csv is not None:
     )
     map.update_traces(cluster=dict(enabled=True))
     st.plotly_chart(map)
-    st.dataframe(locations)

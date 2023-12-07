@@ -7,7 +7,7 @@ from utils import clean_assignment_csv
 
 # import plotly.express as px
 import pandas as pd
-import numpy as np
+import plotly.express as px
 # import matplotlib.pyplot as plt
 
 
@@ -83,4 +83,11 @@ csv = st.file_uploader("Choose a file", type="csv", accept_multiple_files=False)
 if csv is not None:
     df = time_of_day_grade(csv)
     st.markdown("### Average Grade vs. Time of Day")
-    st.bar_chart(df.set_index("Time of Day"), y="Average Grade")
+    bar_chart = px.bar(
+        df,
+        x="Time of Day",
+        y="Average Grade",
+        category_orders={"Time of Day": ["Morning", "Afternoon", "Evening", "Night"]},
+        range_y=(0, 23),
+    )
+    st.plotly_chart(bar_chart)

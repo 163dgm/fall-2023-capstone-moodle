@@ -49,7 +49,7 @@ if csv is not None:
         x_end="Complete Time",
         y="Grade/20",
         hover_data=["Student ID", "First Name", "Surname"],
-        range_y=[0, 20],
+        range_y=(0, 23),
     )
     st.plotly_chart(timeline)
 

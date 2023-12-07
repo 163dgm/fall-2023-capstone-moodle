@@ -154,11 +154,11 @@ if exam_csv is not None:
         st.dataframe(
             table_exam,
             column_order=(
+                "Student ID",
                 "Surname",
                 "First Name",
                 "Letter Grade",
                 "Grade/20",
-                "Student ID",
             ),
             hide_index=True,
         )
