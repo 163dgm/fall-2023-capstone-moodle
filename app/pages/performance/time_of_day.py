@@ -75,12 +75,12 @@ def time_of_day_grade(csv):  # time of day assignment is submitted, correspondin
 
 add_indentation()
 st.title("Time of Day and Performance per Assignment")
-st.subheader("Visualize When Students Complete Assignments")
+st.subheader("Visualize when students complete assignments")
 st.caption(
     "See if students' performance is affected by the time of day at which they complete their assignments. Students are categorized into four groups according to when they do their assignments. These groups are 'Morning', 'Afteroon', 'Evening', and 'Night', which are defined as 6am-12pm, 12pm-5pm, 5pm-8pm, and 8pm-5am, respectively."
 )
 csv = st.file_uploader(
-    "Upload multiple assignment CSVs", type="csv", accept_multiple_files=False
+    "Upload one assignment CSV", type="csv", accept_multiple_files=False
 )
 if csv is not None:
     df = time_of_day_grade(csv)

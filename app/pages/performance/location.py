@@ -41,7 +41,7 @@ def geolocate_assignment_submissions(csv: UploadedFile):
 
 add_indentation()
 st.title("Assignment Submission Locations")
-st.subheader("Visualize Where Students Submit Assignments")
+st.subheader("Visualize where students submit assignments")
 st.caption(
     "Time zone difference can have an effect on students and their performance. If a student performed unusually on an assignment, use the map to find if a time difference could be affecting their performance."
 )
