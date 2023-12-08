@@ -144,7 +144,9 @@ st.caption(
 )
 
 
-exam_csv = st.file_uploader("Upload exam file", type="csv", accept_multiple_files=False)
+exam_csv = st.file_uploader(
+    "Upload an exam file", type="csv", accept_multiple_files=False
+)
 if exam_csv is not None:
     exam = clean_exam(exam_csv)
 
@@ -172,7 +174,7 @@ if exam_csv is not None:
         st.plotly_chart(pie, use_container_width=True)
 
     assignment_csvs = st.file_uploader(
-        "Upload pre-exam assignments", type="csv", accept_multiple_files=True
+        "Upload pre-exam assignment CSVs", type="csv", accept_multiple_files=True
     )
     if len(assignment_csvs) > 0:
         assignments = read_assignments(assignment_csvs)

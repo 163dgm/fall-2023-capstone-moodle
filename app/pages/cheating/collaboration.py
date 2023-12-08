@@ -39,7 +39,9 @@ st.caption(
 )
 
 
-csv = st.file_uploader("Choose a file", type="csv", accept_multiple_files=False)
+csv = st.file_uploader(
+    "Upload a single assignment CSV", type="csv", accept_multiple_files=False
+)
 if csv is not None:
     collabs = get_assignment_collaboration(csv)
 

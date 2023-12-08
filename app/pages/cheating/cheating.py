@@ -76,7 +76,9 @@ st.caption(
 )
 
 
-csvs = st.file_uploader("Choose a file", type="csv", accept_multiple_files=True)
+csvs = st.file_uploader(
+    "Upload multiple assignment CSVs", type="csv", accept_multiple_files=True
+)
 if len(csvs) > 0:
     cheaters = find_cheaters_in_multiple_files(csvs)
     s = cheaters.style.format({"Student ID": lambda x: "{:}".format(x)})
